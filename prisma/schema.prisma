@@ -13,11 +13,12 @@ datasource db {
   provider = "postgresql"
 }
 
-model user {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  name     String
-  password String
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String
+  password     String
+  transactions Transaction[]
 }
 
 model Transaction {
@@ -25,4 +26,6 @@ model Transaction {
   description String
   amount      Float
   date        DateTime @default(now())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 }
