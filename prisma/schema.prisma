@@ -13,6 +13,13 @@ datasource db {
   provider = "postgresql"
 }
 
+model user {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  password String
+}
+
 model Transaction {
   id          Int      @id @default(autoincrement())
   description String
