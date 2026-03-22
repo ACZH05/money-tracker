@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, User } from '../../generated/prisma/client.js';
+import { User } from '../../generated/prisma/client.js';
+import { prisma } from '../prisma/prisma.export.js';
 
-const prisma = new PrismaClient();
 @Injectable()
 export class UserService {
   async findAll(): Promise<User[]> {
