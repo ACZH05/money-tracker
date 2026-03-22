@@ -5,9 +5,15 @@ import { PrismaService } from './prisma/prisma.service.js';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { TransactionModule } from './transaction/transaction.module.js';
 
 @Module({
-  imports: [ConfigModule.forRoot({}), UserModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({}),
+    UserModule,
+    AuthModule,
+    TransactionModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
