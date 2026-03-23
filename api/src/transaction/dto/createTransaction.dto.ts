@@ -1,4 +1,5 @@
 export class createTransactionDto {
   amount: number;
-  description: string;
+  category: string;
+  timestamp: Date;
 }
