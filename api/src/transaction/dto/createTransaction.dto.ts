@@ -1,5 +1,12 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class createTransactionDto {
-  amount: number;
-  category: string;
-  timestamp: Date;
+  @ApiProperty()
+  amount!: number;
+
+  @ApiProperty()
+  category!: string;
+
+  @ApiProperty()
+  timestamp!: Date;
 }
