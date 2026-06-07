@@ -17,7 +17,7 @@ void main() {
     expect(find.byType(NavigationBar), findsOneWidget);
   });
 
-  testWidgets('view all opens the transactions placeholder', (
+  testWidgets('view all opens the transactions history screen', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MyApp());
@@ -31,11 +31,13 @@ void main() {
     button.onPressed!.call();
     await tester.pumpAndSettle();
 
-    expect(find.text('Your full history will live here soon.'), findsOneWidget);
-    expect(find.text('The Fluid Ledger'), findsNothing);
+    expect(find.text('Search transactions...'), findsOneWidget);
+    expect(find.text('TODAY'), findsOneWidget);
+    expect(find.text('YESTERDAY'), findsOneWidget);
+    expect(find.text('MAY 15'), findsOneWidget);
   });
 
-  testWidgets('bottom navigation opens placeholder destinations', (
+  testWidgets('bottom navigation opens transactions history', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MyApp());
@@ -44,8 +46,12 @@ void main() {
     await tester.tap(find.byIcon(Icons.receipt_long_outlined));
     await tester.pumpAndSettle();
 
-    expect(find.text('Your full history will live here soon.'), findsOneWidget);
-    expect(find.text('The Fluid Ledger'), findsNothing);
+    expect(find.text('Artisan Espresso'), findsOneWidget);
+    expect(find.text('May 24, 09:15 AM'), findsOneWidget);
+    expect(find.text('-RM 6.50'), findsOneWidget);
+    expect(find.text('Food & Drink'), findsOneWidget);
+    expect(find.text('+RM 1,200.00'), findsOneWidget);
+    expect(find.text('Income'), findsOneWidget);
   });
 
   testWidgets('add transaction tab renders the real entry screen', (
@@ -128,5 +134,71 @@ void main() {
 
     expect(find.text('Saved expense of RM 82.40 for Food.'), findsOneWidget);
     expect(find.text('Total Balance'), findsOneWidget);
+  });
+
+  testWidgets('search narrows visible transaction history', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.receipt_long_outlined));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+      find.byKey(const Key('transactions_search_input')),
+      'Rent',
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Monthly Rent'), findsOneWidget);
+    expect(find.text('Artisan Espresso'), findsNothing);
+    expect(find.text('Freelance Project'), findsNothing);
+  });
+
+  testWidgets('filter sheet can show income-only transactions', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.receipt_long_outlined));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('transactions_filter_button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('transaction_filter_income')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Freelance Project'), findsOneWidget);
+    expect(find.text('+RM 1,200.00'), findsOneWidget);
+    expect(find.text('Artisan Espresso'), findsNothing);
+    expect(find.text('Monthly Rent'), findsNothing);
+  });
+
+  testWidgets('no-match search shows empty state and opens add transaction', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.receipt_long_outlined));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+      find.byKey(const Key('transactions_search_input')),
+      'Nope',
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('No matching transactions yet'), findsOneWidget);
+
+    await tester.tap(
+      find.byKey(const Key('transactions_empty_state_add_button')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Save Transaction'), findsOneWidget);
+    expect(find.byTooltip('Back to home'), findsOneWidget);
   });
 }

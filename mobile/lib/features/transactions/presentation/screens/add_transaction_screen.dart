@@ -4,13 +4,13 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../models/transaction.dart';
 import '../../data/mock_transactions.dart';
-import '../widgets/add_transaction_top_bar.dart';
-import '../widgets/amount_entry_section.dart';
-import '../widgets/category_selector_grid.dart';
-import '../widgets/save_transaction_bar.dart';
-import '../widgets/transaction_date_row.dart';
-import '../widgets/transaction_notes_card.dart';
-import '../widgets/transaction_type_selector.dart';
+import '../widgets/add_transaction/add_transaction_top_bar.dart';
+import '../widgets/add_transaction/amount_entry_section.dart';
+import '../widgets/add_transaction/category_selector_grid.dart';
+import '../widgets/add_transaction/save_transaction_bar.dart';
+import '../widgets/add_transaction/transaction_date_row.dart';
+import '../widgets/add_transaction/transaction_notes_card.dart';
+import '../widgets/add_transaction/transaction_type_selector.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({

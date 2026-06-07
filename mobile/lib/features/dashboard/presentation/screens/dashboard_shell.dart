@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../transactions/presentation/screens/add_transaction_screen.dart';
+import '../../../transactions/presentation/screens/transactions_history_screen.dart';
 import '../../../../shared/widgets/glass_bottom_nav.dart';
 import 'dashboard_screen.dart';
 
@@ -27,10 +28,8 @@ class _DashboardShellState extends State<DashboardShell> {
       onAddTransactionTap: () => _selectIndex(_addTransactionIndex),
       onBudgetTap: () => _selectIndex(_budgetIndex),
     ),
-    const _PlaceholderScreen(
-      title: 'Transactions',
-      message: 'Your full history will live here soon.',
-      icon: Icons.receipt_long_rounded,
+    TransactionsHistoryScreen(
+      onAddTransactionTap: () => _selectIndex(_addTransactionIndex),
     ),
     AddTransactionScreen(
       onBackHome: () => _selectIndex(_homeIndex),
