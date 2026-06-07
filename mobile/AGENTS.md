@@ -54,3 +54,16 @@ Run:
 - `flutter test`
 
 Fix errors before reporting completion.
+
+## Stitch HTML Reference Rule
+
+The files in `docs/stitch-html/` are exported from Stitch and are used as visual/layout references only.
+
+When implementing Flutter UI:
+
+- Do not directly copy HTML/CSS.
+- Translate the layout into Flutter widgets.
+- Preserve the same screen hierarchy and component order.
+- Preserve visible labels, section names, and navigation structure.
+- Use `docs/DESIGN.md` for design tokens and style rules.
+- Use `docs/SCREEN_SPEC.md` for exact screen layout.
