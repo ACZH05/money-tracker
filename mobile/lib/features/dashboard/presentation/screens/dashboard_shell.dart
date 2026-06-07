@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../transactions/presentation/screens/add_transaction_screen.dart';
 import '../../../../shared/widgets/glass_bottom_nav.dart';
 import 'dashboard_screen.dart';
 
@@ -31,10 +32,9 @@ class _DashboardShellState extends State<DashboardShell> {
       message: 'Your full history will live here soon.',
       icon: Icons.receipt_long_rounded,
     ),
-    const _PlaceholderScreen(
-      title: 'Add Transaction',
-      message: 'A focused entry flow is queued up next.',
-      icon: Icons.add_circle_outline_rounded,
+    AddTransactionScreen(
+      onBackHome: () => _selectIndex(_homeIndex),
+      onSaveComplete: () => _selectIndex(_homeIndex),
     ),
     const _PlaceholderScreen(
       title: 'Budget',
