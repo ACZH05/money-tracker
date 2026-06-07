@@ -97,24 +97,20 @@ class _NavIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!emphasized) {
-      return Icon(
-        icon,
-        color: selected ? AppColors.primary : AppColors.onSurfaceVariant,
+    if (selected) {
+      return Container(
+        padding: const EdgeInsets.all(AppSpacing.sm),
+        decoration: const BoxDecoration(
+          gradient: AppColors.primaryGradient,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: AppColors.onPrimary),
       );
     }
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.sm),
-      decoration: BoxDecoration(
-        gradient: selected ? AppColors.primaryGradient : null,
-        color: selected ? null : AppColors.surfaceContainerHigh,
-        shape: BoxShape.circle,
-      ),
-      child: Icon(
-        icon,
-        color: selected ? AppColors.onPrimary : AppColors.primary,
-      ),
+    return Icon(
+      icon,
+      color: emphasized ? AppColors.primary : AppColors.onSurfaceVariant,
     );
   }
 }

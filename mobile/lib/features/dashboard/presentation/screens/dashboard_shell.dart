@@ -14,6 +14,7 @@ class DashboardShell extends StatefulWidget {
 
 class _DashboardShellState extends State<DashboardShell> {
   static const int _homeIndex = 0;
+  static const int _transactionsIndex = 1;
   static const int _budgetIndex = 3;
   static const int _addTransactionIndex = 2;
 
@@ -21,6 +22,7 @@ class _DashboardShellState extends State<DashboardShell> {
 
   late final List<Widget> _pages = <Widget>[
     DashboardScreen(
+      onViewAllTransactionsTap: () => _selectIndex(_transactionsIndex),
       onAddTransactionTap: () => _selectIndex(_addTransactionIndex),
       onBudgetTap: () => _selectIndex(_budgetIndex),
     ),

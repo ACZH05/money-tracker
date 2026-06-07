@@ -9,11 +9,30 @@ void main() {
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
-    expect(find.text('Hello, Alfred'), findsOneWidget);
-    expect(find.text('Total balance'), findsOneWidget);
-    expect(find.text('Recent transactions'), findsOneWidget);
+    expect(find.text('The Fluid Ledger'), findsOneWidget);
+    expect(find.text('Total Balance'), findsOneWidget);
+    expect(find.text('Monthly Overview'), findsOneWidget);
+    expect(find.text('Recent Transactions'), findsOneWidget);
+    expect(find.text('Monthly Budget'), findsOneWidget);
     expect(find.byType(NavigationBar), findsOneWidget);
-    expect(find.byIcon(Icons.home_rounded), findsWidgets);
+  });
+
+  testWidgets('view all opens the transactions placeholder', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    final viewAllButton = find.ancestor(
+      of: find.text('View All'),
+      matching: find.byType(TextButton),
+    );
+    final button = tester.widget<TextButton>(viewAllButton);
+    button.onPressed!.call();
+    await tester.pumpAndSettle();
+
+    expect(find.text('Your full history will live here soon.'), findsOneWidget);
+    expect(find.text('The Fluid Ledger'), findsNothing);
   });
 
   testWidgets('bottom navigation opens placeholder destinations', (
@@ -26,6 +45,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Your full history will live here soon.'), findsOneWidget);
-    expect(find.text('Hello, Alfred'), findsNothing);
+    expect(find.text('The Fluid Ledger'), findsNothing);
   });
 }

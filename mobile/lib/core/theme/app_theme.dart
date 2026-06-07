@@ -42,7 +42,7 @@ class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: Colors.transparent,
         height: 74,
-        indicatorColor: AppColors.withOpacity(AppColors.primary, 0.10),
+        indicatorColor: Colors.transparent,
         labelTextStyle: WidgetStateProperty.all(
           const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
         ),

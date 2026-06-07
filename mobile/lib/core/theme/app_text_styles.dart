@@ -8,14 +8,14 @@ class AppTextStyles {
 
     return TextTheme(
       displayLarge: base.copyWith(
-        fontSize: 42,
+        fontSize: 48,
         fontWeight: FontWeight.w800,
-        letterSpacing: -1.4,
+        letterSpacing: -1.8,
       ),
       displayMedium: base.copyWith(
-        fontSize: 34,
+        fontSize: 32,
         fontWeight: FontWeight.w800,
-        letterSpacing: -1.0,
+        letterSpacing: -1.1,
       ),
       headlineSmall: base.copyWith(
         fontSize: 24,
@@ -29,18 +29,25 @@ class AppTextStyles {
         fontSize: 15,
         fontWeight: FontWeight.w500,
         color: AppColors.onSurface,
+        height: 1.35,
       ),
       bodyMedium: base.copyWith(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: AppColors.onSurfaceVariant,
+        height: 1.4,
       ),
-      labelLarge: base.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+      labelLarge: base.copyWith(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: AppColors.tertiary,
+        letterSpacing: 0.3,
+      ),
       labelMedium: base.copyWith(
         fontSize: 12,
         fontWeight: FontWeight.w600,
         color: AppColors.onSurfaceVariant,
-        letterSpacing: 0.2,
+        letterSpacing: 0.3,
       ),
       labelSmall: base.copyWith(
         fontSize: 11,

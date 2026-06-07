@@ -16,6 +16,9 @@ class AppColors {
   static const Color onSurfaceVariant = Color(0xFF3F484B);
   static const Color outlineVariant = Color(0xFFBEC8CB);
   static const Color inverseSurface = Color(0xFF2A3233);
+  static const Color inverseOnSurface = Color(0xFFEAF2F4);
+  static const Color secondaryContainer = Color(0xFFAEE9F8);
+  static const Color tertiaryContainer = Color(0xFFB3D7E2);
 
   static const Color income = Color(0xFF1E8E79);
   static const Color incomeSoft = Color(0xFFD9F3EE);

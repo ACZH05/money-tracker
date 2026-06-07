@@ -7,10 +7,14 @@ class DashboardData {
     required this.userName,
     required this.monthLabel,
     required this.totalBalance,
-    required this.balanceTrendLabel,
+    required this.balanceTrendValue,
+    required this.balanceTrendContext,
     required this.monthlyIncome,
     required this.monthlyExpenses,
     required this.monthlySavings,
+    required this.monthlyOverviewBars,
+    required this.monthlyBudgetSpent,
+    required this.monthlyBudgetLimit,
     required this.spendingCategories,
     required this.recentTransactions,
   });
@@ -18,10 +22,14 @@ class DashboardData {
   final String userName;
   final String monthLabel;
   final double totalBalance;
-  final String balanceTrendLabel;
+  final String balanceTrendValue;
+  final String balanceTrendContext;
   final double monthlyIncome;
   final double monthlyExpenses;
   final double monthlySavings;
+  final List<double> monthlyOverviewBars;
+  final double monthlyBudgetSpent;
+  final double monthlyBudgetLimit;
   final List<SpendingCategoryData> spendingCategories;
   final List<TransactionRecord> recentTransactions;
 }
@@ -46,10 +54,14 @@ final dashboardData = DashboardData(
   userName: 'Alfred',
   monthLabel: 'June 2026',
   totalBalance: 5280.45,
-  balanceTrendLabel: '+RM 420.10 from last month',
+  balanceTrendValue: '+8.6%',
+  balanceTrendContext: 'vs last month',
   monthlyIncome: 3200.00,
   monthlyExpenses: 1840.55,
   monthlySavings: 1359.45,
+  monthlyOverviewBars: <double>[0.30, 0.46, 0.62, 0.80, 0.54, 1.0, 0.72],
+  monthlyBudgetSpent: 3000.00,
+  monthlyBudgetLimit: 4000.00,
   spendingCategories: <SpendingCategoryData>[
     SpendingCategoryData(
       category: 'Essentials',
@@ -73,33 +85,33 @@ final dashboardData = DashboardData(
   recentTransactions: <TransactionRecord>[
     TransactionRecord(
       id: 'txn_1',
-      title: 'Scholarship Payout',
-      amount: 900.00,
+      title: 'Salary Deposit',
+      amount: 4200.00,
       type: TransactionType.income,
       category: 'Income',
-      date: DateTime(2026, 6, 5),
+      date: DateTime(2026, 6, 6),
       paymentMethod: 'Bank Transfer',
-      note: 'Monthly scholarship disbursement',
+      note: 'Monthly salary transfer',
     ),
     TransactionRecord(
       id: 'txn_2',
-      title: 'Weekend Groceries',
-      amount: 142.30,
+      title: 'Grocery Store',
+      amount: 124.50,
       type: TransactionType.expense,
       category: 'Groceries',
-      date: DateTime(2026, 6, 4),
+      date: DateTime(2026, 6, 7),
       paymentMethod: 'Debit Card',
       note: 'Fresh produce and pantry restock',
     ),
     TransactionRecord(
       id: 'txn_3',
-      title: 'Co-working Pass',
-      amount: 68.00,
+      title: 'Streaming Service',
+      amount: 15.99,
       type: TransactionType.expense,
-      category: 'Study & Work',
-      date: DateTime(2026, 6, 3),
+      category: 'Entertainment',
+      date: DateTime(2026, 6, 2),
       paymentMethod: 'E-Wallet',
-      note: 'Three-day focus pass',
+      note: 'Monthly streaming subscription',
     ),
     TransactionRecord(
       id: 'txn_4',

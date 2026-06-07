@@ -6,82 +6,113 @@ import '../../../../shared/widgets/app_card.dart';
 import '../../../../shared/widgets/app_gradient_button.dart';
 
 class QuickActionCard extends StatelessWidget {
-  const QuickActionCard({
-    super.key,
-    required this.onAddTransaction,
-    required this.onOpenBudget,
-  });
+  const QuickActionCard({super.key, required this.onAddTransaction});
 
   final VoidCallback onAddTransaction;
-  final VoidCallback onOpenBudget;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final cardWidth = constraints.maxWidth >= 460
-            ? (constraints.maxWidth - AppSpacing.lg) / 2
-            : constraints.maxWidth;
+    return AppCard(
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final compact = constraints.maxWidth < 360;
 
-        return Wrap(
-          spacing: AppSpacing.lg,
-          runSpacing: AppSpacing.lg,
+          return compact
+              ? _CompactQuickAction(onAddTransaction: onAddTransaction)
+              : _WideQuickAction(onAddTransaction: onAddTransaction);
+        },
+      ),
+    );
+  }
+}
+
+class _WideQuickAction extends StatelessWidget {
+  const _WideQuickAction({required this.onAddTransaction});
+
+  final VoidCallback onAddTransaction;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        const _QuickActionIcon(),
+        const SizedBox(width: AppSpacing.lg),
+        Expanded(child: _QuickActionText()),
+        const SizedBox(width: AppSpacing.md),
+        AppGradientButton(
+          label: 'Add',
+          icon: Icons.add_rounded,
+          onPressed: onAddTransaction,
+          expanded: false,
+        ),
+      ],
+    );
+  }
+}
+
+class _CompactQuickAction extends StatelessWidget {
+  const _CompactQuickAction({required this.onAddTransaction});
+
+  final VoidCallback onAddTransaction;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Row(
           children: <Widget>[
-            SizedBox(
-              width: cardWidth,
-              child: AppCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Quick capture',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Add a new money moment before it slips away.',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: AppSpacing.xl),
-                    AppGradientButton(
-                      label: 'Add transaction',
-                      icon: Icons.add_rounded,
-                      onPressed: onAddTransaction,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: cardWidth,
-              child: AppCard(
-                variant: AppCardVariant.subtle,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(Icons.savings_rounded, color: AppColors.primary),
-                    const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      'Budget glance',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Check your monthly limits and keep things feeling light.',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: AppSpacing.xl),
-                    TextButton(
-                      onPressed: onOpenBudget,
-                      child: const Text('Open budget'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _QuickActionIcon(),
+            SizedBox(width: AppSpacing.lg),
+            Expanded(child: _QuickActionText()),
           ],
-        );
-      },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        AppGradientButton(
+          label: 'Add Transaction',
+          icon: Icons.add_rounded,
+          onPressed: onAddTransaction,
+        ),
+      ],
+    );
+  }
+}
+
+class _QuickActionIcon extends StatelessWidget {
+  const _QuickActionIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 52,
+      height: 52,
+      decoration: BoxDecoration(
+        color: AppColors.surfaceContainer,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: const Icon(
+        Icons.add_circle_outline_rounded,
+        color: AppColors.primary,
+      ),
+    );
+  }
+}
+
+class _QuickActionText extends StatelessWidget {
+  const _QuickActionText();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Add Transaction', style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          'Capture a new money moment before it slips away.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ],
     );
   }
 }

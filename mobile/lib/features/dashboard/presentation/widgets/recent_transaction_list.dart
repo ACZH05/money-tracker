@@ -5,7 +5,6 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../models/transaction.dart';
 import '../../../../shared/widgets/amount_text.dart';
 import '../../../../shared/widgets/app_card.dart';
-import '../../../../shared/widgets/pulse_chip.dart';
 
 class RecentTransactionList extends StatelessWidget {
   const RecentTransactionList({super.key, required this.transactions});
@@ -39,7 +38,7 @@ class _TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isIncome = transaction.type == TransactionType.income;
-    final amountColor = isIncome ? AppColors.income : AppColors.onSurface;
+    final amountColor = isIncome ? AppColors.primary : AppColors.expense;
 
     return Row(
       children: <Widget>[
@@ -48,13 +47,13 @@ class _TransactionTile extends StatelessWidget {
           height: 52,
           decoration: BoxDecoration(
             color: isIncome
-                ? AppColors.incomeSoft
-                : AppColors.surfaceContainerLow,
-            borderRadius: BorderRadius.circular(18),
+                ? AppColors.tertiaryContainer
+                : AppColors.secondaryContainer,
+            shape: BoxShape.circle,
           ),
           child: Icon(
-            isIncome ? Icons.south_west_rounded : Icons.north_east_rounded,
-            color: isIncome ? AppColors.income : AppColors.expense,
+            _iconForTransaction(transaction),
+            color: isIncome ? AppColors.primary : AppColors.onSurfaceVariant,
           ),
         ),
         const SizedBox(width: AppSpacing.lg),
@@ -68,13 +67,8 @@ class _TransactionTile extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
-                '${transaction.category} • ${_formatDate(transaction.date)}',
+                _formatDate(transaction.date),
                 style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              PulseChip(
-                label: isIncome ? 'Income' : 'Expense',
-                type: isIncome ? PulseChipType.income : PulseChipType.expense,
               ),
             ],
           ),
@@ -91,7 +85,39 @@ class _TransactionTile extends StatelessWidget {
   }
 }
 
+IconData _iconForTransaction(TransactionRecord transaction) {
+  if (transaction.type == TransactionType.income) {
+    return Icons.account_balance_wallet_rounded;
+  }
+
+  final category = transaction.category.toLowerCase();
+
+  if (category.contains('grocer')) {
+    return Icons.shopping_bag_rounded;
+  }
+  if (category.contains('entertain')) {
+    return Icons.movie_rounded;
+  }
+  if (category.contains('study') || category.contains('work')) {
+    return Icons.laptop_mac_rounded;
+  }
+
+  return Icons.payments_rounded;
+}
+
 String _formatDate(DateTime date) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final compare = DateTime(date.year, date.month, date.day);
+  final difference = today.difference(compare).inDays;
+
+  if (difference == 0) {
+    return 'Today';
+  }
+  if (difference == 1) {
+    return 'Yesterday';
+  }
+
   const months = <String>[
     'Jan',
     'Feb',
@@ -107,5 +133,5 @@ String _formatDate(DateTime date) {
     'Dec',
   ];
 
-  return '${months[date.month - 1]} ${date.day}';
+  return '${months[date.month - 1]} ${date.day}, ${date.year}';
 }
